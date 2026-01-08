@@ -11,7 +11,7 @@
       font-family: 'Cormorant Garamond', Georgia, serif;
       background:#fafaf8;
       color:#2c2c2c;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .container{
@@ -43,8 +43,8 @@
     }
 
     .intro{
-      max-width: 860px;
-      margin: 0 auto 34px;
+      max-width: 900px;
+      margin: 0 auto 30px;
       text-align: center;
       font-size: 18px;
       color:#3a3a3a;
@@ -62,28 +62,32 @@
       opacity: 0.9;
     }
 
-    /* --- Editorial image system (no cropping) --- */
+    /* --- Editorial gallery --- */
     .gallery{
-      margin-top: 26px;
+      margin-top: 20px;
       display: flex;
       flex-direction: column;
-      gap: 34px; /* big breathing room */
+      gap: 34px; /* whitespace rhythm */
       animation: fadeIn 1.6s ease-in;
     }
 
-    figure{
-      margin: 0;
-    }
+    figure{ margin: 0; }
 
+    /* Frame = consistent “print margin” look */
     .frame{
       background: #f2efea;
       border: 1px solid rgba(212, 207, 199, 0.9);
       border-radius: 2px;
-      padding: 18px; /* whitespace like an editorial margin */
+      padding: 18px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
 
-    /* Ensure NO cropping: contain + auto sizing */
+    /* Click affordance stays subtle */
+    .zoomable{
+      cursor: zoom-in;
+    }
+
+    /* Always NO crop: contain */
     .frame img{
       display:block;
       width: 100%;
@@ -92,7 +96,7 @@
       border-radius: 1px;
     }
 
-    /* Hero uses landscape-friendly height but still no crop */
+    /* Hero: landscape-friendly but still no crop */
     .hero .frame{
       padding: 22px;
     }
@@ -103,21 +107,68 @@
       object-fit: contain;
     }
 
-    /* Spreads */
+    /* Spread: two equal-sized tiles */
     .spread{
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 28px;
     }
 
-    /* A slightly narrower single for rhythm */
+    /* Fixed-height tile so side-by-side blocks match */
+    .tile{
+      height: 520px;                 /* desktop */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tile img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;           /* no crop */
+    }
+
+    /* Singles to keep rhythm */
     .narrow{
-      max-width: 960px;
+      max-width: 980px;
       margin-left: auto;
       margin-right: auto;
     }
+    .single-tile{
+      height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .single-tile img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
-    /* Contact */
+    /* Editorial text blocks between images */
+    .interlude{
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+      color:#3a3a3a;
+    }
+    .interlude .kicker{
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color:#6b6b6b;
+      margin-bottom: 10px;
+    }
+    .interlude p{
+      font-size: 18px;
+      line-height: 1.85;
+    }
+    .interlude em{
+      color:#6b6b6b;
+      font-style: italic;
+    }
+
+    /* --- Contact --- */
     .contact-section{
       background: rgba(255,255,255,0.7);
       padding: 56px 46px;
@@ -199,7 +250,6 @@
       border-radius:2px;
       margin-top: 20px;
     }
-
     .success-message.show{
       display:block;
       animation: fadeIn 0.5s ease-in;
@@ -225,9 +275,101 @@
       to{ opacity:1; transform: translateY(0); }
     }
 
-    @media (max-width: 900px){
+    /* --- Lightbox (classy + minimal) --- */
+    .lightbox{
+      position: fixed;
+      inset: 0;
+      background: rgba(18,18,18,0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 26px;
+      z-index: 9999;
+    }
+    .lightbox.show{ display:flex; }
+
+    .lightbox-card{
+      width: min(1200px, 96vw);
+      max-height: 92vh;
+      background: rgba(250,250,248,0.96);
+      border: 1px solid rgba(212,207,199,0.9);
+      border-radius: 6px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lightbox-bar{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(212,207,199,0.9);
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox-title{
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color:#2c2c2c;
+      opacity: 0.9;
+    }
+
+    .lightbox-actions{
+      display:flex;
+      gap: 8px;
+      align-items:center;
+    }
+
+    .lb-btn{
+      border: 1px solid #d4cfc7;
+      background: rgba(255,255,255,0.85);
+      padding: 8px 10px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+      color:#2c2c2c;
+    }
+    .lb-btn:hover{
+      border-color:#a89f91;
+      transform: translateY(-1px);
+    }
+
+    .lightbox-body{
+      padding: 16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow: auto;
+    }
+
+    .lightbox-body img{
+      width: min(1100px, 92vw);
+      max-height: 74vh;
+      object-fit: contain; /* never crop */
+      background: #fff;
+      border: 1px solid rgba(212,207,199,0.9);
+      border-radius: 6px;
+    }
+
+    @media (max-width: 980px){
       .spread{ grid-template-columns: 1fr; }
+      .tile{ height: 420px; }
+      .single-tile{ height: 460px; }
       h1{ font-size: 48px; letter-spacing: 8px; }
+    }
+
+    @media (max-width: 560px){
+      .tile{ height: 340px; }
+      .single-tile{ height: 380px; }
+      .contact-section{ padding: 40px 25px; }
     }
   </style>
 </head>
@@ -239,6 +381,7 @@
       <p class="tagline">Artist-Created Wallcoverings</p>
     </header>
 
+    <!-- Keep existing text -->
     <div class="intro">
       <p>Original artwork transformed into exclusive wallcoverings for interior designers who value authenticity over mass production.</p>
       <div class="divider"></div>
@@ -247,74 +390,110 @@
 
     <section class="gallery" aria-label="Gallery">
 
-      <!-- HERO: start with Image 11 (landscape). No crop. -->
+      <!-- HERO: Image 11 -->
       <figure class="hero">
-        <div class="frame">
-          <img src="images/11.PNG" alt="ANYA wallcovering installation 11" loading="eager">
+        <div class="frame zoomable">
+          <img src="images/11.PNG" alt="ANYA wallcovering installation 11" loading="eager" data-zoom="images/11.PNG">
         </div>
       </figure>
 
-      <!-- Spacious rhythm: a spread, then singles, etc. -->
+      <!-- Put back the text block under first image -->
+      <div class="interlude">
+        <div class="kicker">Studio to Wall</div>
+        <p>Each design begins in our studio—abstract, botanical, minimalist compositions created for high-end residential spaces that deserve to feel <em>collected</em>, not decorated.</p>
+      </div>
+
+      <!-- Spread 1 (equal tiles) -->
       <div class="spread">
         <figure>
-          <div class="frame">
-            <img src="images/1.PNG" alt="ANYA wallcovering installation 1" loading="lazy">
+          <div class="frame tile zoomable">
+            <img src="images/1.PNG" alt="ANYA wallcovering installation 1" loading="lazy" data-zoom="images/1.PNG">
           </div>
         </figure>
         <figure>
-          <div class="frame">
-            <img src="images/2.jpg" alt="ANYA wallcovering installation 2" loading="lazy">
+          <div class="frame tile zoomable">
+            <img src="images/2.jpg" alt="ANYA wallcovering installation 2" loading="lazy" data-zoom="images/2.jpg">
           </div>
         </figure>
       </div>
 
+      <div class="interlude">
+        <div class="kicker">Made to Live With</div>
+        <p>We design for rooms people actually use—morning light, dinner conversations, quiet corners. The work is meant to hold presence without demanding attention.</p>
+      </div>
+
+      <!-- Single -->
       <figure class="narrow">
-        <div class="frame">
-          <img src="images/3.jpg" alt="ANYA wallcovering installation 3" loading="lazy">
+        <div class="frame single-tile zoomable">
+          <img src="images/3.jpg" alt="ANYA wallcovering installation 3" loading="lazy" data-zoom="images/3.jpg">
         </div>
       </figure>
 
+      <div class="interlude">
+        <div class="kicker">The Collection</div>
+        <p>Some pieces are airy and architectural; others lean botanical or painterly. Together they’re unified by restraint, texture, and a preference for timeless composition.</p>
+      </div>
+
+      <!-- Spread 2 -->
       <div class="spread">
         <figure>
-          <div class="frame">
-            <img src="images/4.jpg" alt="ANYA wallcovering installation 4" loading="lazy">
+          <div class="frame tile zoomable">
+            <img src="images/4.jpg" alt="ANYA wallcovering installation 4" loading="lazy" data-zoom="images/4.jpg">
           </div>
         </figure>
         <figure>
-          <div class="frame">
-            <img src="images/5.jpg" alt="ANYA wallcovering installation 5" loading="lazy">
+          <div class="frame tile zoomable">
+            <img src="images/5.jpg" alt="ANYA wallcovering installation 5" loading="lazy" data-zoom="images/5.jpg">
           </div>
         </figure>
       </div>
 
+      <div class="interlude">
+        <div class="kicker">Scale & Quiet Drama</div>
+        <p>Wallcoverings are at their best when they read as atmosphere first, artwork second—creating depth, warmth, and an effortless sense of intention.</p>
+      </div>
+
+      <!-- Single -->
       <figure class="narrow">
-        <div class="frame">
-          <img src="images/6.jpg" alt="ANYA wallcovering installation 6" loading="lazy">
+        <div class="frame single-tile zoomable">
+          <img src="images/6.jpg" alt="ANYA wallcovering installation 6" loading="lazy" data-zoom="images/6.jpg">
         </div>
       </figure>
 
+      <div class="interlude">
+        <div class="kicker">Details Matter</div>
+        <p>We obsess over balance—negative space, tonal contrast, and how a line feels from across the room. It’s the difference between “pretty” and truly livable luxury.</p>
+      </div>
+
+      <!-- Spread 3 -->
       <div class="spread">
         <figure>
-          <div class="frame">
-            <img src="images/7.PNG" alt="ANYA wallcovering installation 7" loading="lazy">
+          <div class="frame tile zoomable">
+            <img src="images/7.PNG" alt="ANYA wallcovering installation 7" loading="lazy" data-zoom="images/7.PNG">
           </div>
         </figure>
         <figure>
-          <div class="frame">
-            <img src="images/8.PNG" alt="ANYA wallcovering installation 8" loading="lazy">
+          <div class="frame tile zoomable">
+            <img src="images/8.PNG" alt="ANYA wallcovering installation 8" loading="lazy" data-zoom="images/8.PNG">
           </div>
         </figure>
       </div>
 
+      <div class="interlude">
+        <div class="kicker">For Designers</div>
+        <p>If you’re specifying for a project, we’ll help you choose the right mood and scale—and make sure the final installation feels seamless, intentional, and elevated.</p>
+      </div>
+
+      <!-- Singles -->
       <figure class="narrow">
-        <div class="frame">
-          <img src="images/9.PNG" alt="ANYA wallcovering installation 9" loading="lazy">
+        <div class="frame single-tile zoomable">
+          <img src="images/9.PNG" alt="ANYA wallcovering installation 9" loading="lazy" data-zoom="images/9.PNG">
         </div>
       </figure>
 
       <figure class="narrow">
-        <div class="frame">
-          <img src="images/10.PNG" alt="ANYA wallcovering installation 10" loading="lazy">
+        <div class="frame single-tile zoomable">
+          <img src="images/10.PNG" alt="ANYA wallcovering installation 10" loading="lazy" data-zoom="images/10.PNG">
         </div>
       </figure>
 
@@ -358,7 +537,25 @@
     </footer>
   </div>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-card" role="dialog" aria-modal="true">
+      <div class="lightbox-bar">
+        <div class="lightbox-title">ANYA — View</div>
+        <div class="lightbox-actions">
+          <button class="lb-btn" id="prevBtn" type="button">Prev</button>
+          <button class="lb-btn" id="nextBtn" type="button">Next</button>
+          <button class="lb-btn" id="closeBtn" type="button">Close</button>
+        </div>
+      </div>
+      <div class="lightbox-body">
+        <img id="lightboxImg" src="" alt="Enlarged wallcovering">
+      </div>
+    </div>
+  </div>
+
   <script>
+    // Contact form (unchanged)
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -379,6 +576,53 @@
         document.getElementById('contactForm').style.display = 'block';
         document.getElementById('successMessage').classList.remove('show');
       }, 3000);
+    });
+
+    // --- Lightbox ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeBtn = document.getElementById('closeBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    const zoomables = Array.from(document.querySelectorAll('[data-zoom]'));
+    const srcs = zoomables.map(el => el.getAttribute('data-zoom'));
+    let idx = 0;
+
+    function openLightboxAt(i){
+      idx = (i + srcs.length) % srcs.length;
+      lightboxImg.src = srcs[idx];
+      lightbox.classList.add('show');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(){
+      lightbox.classList.remove('show');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    zoomables.forEach((el, i) => {
+      el.addEventListener('click', () => openLightboxAt(i));
+    });
+
+    prevBtn.addEventListener('click', () => openLightboxAt(idx - 1));
+    nextBtn.addEventListener('click', () => openLightboxAt(idx + 1));
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // Click outside closes
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('show')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') openLightboxAt(idx - 1);
+      if (e.key === 'ArrowRight') openLightboxAt(idx + 1);
     });
   </script>
 </body>
