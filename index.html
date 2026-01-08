@@ -1,404 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ANYA - Artist-Created Wallcoverings</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
+    body{
       font-family: 'Cormorant Garamond', Georgia, serif;
-      background: #fafaf8;
-      color: #2c2c2c;
-      line-height: 1.6;
+      background:#fafaf8;
+      color:#2c2c2c;
+      line-height:1.6;
     }
 
-    .container {
-      max-width: 1400px;
+    .container{
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 40px 30px;
+      padding: 40px 26px 70px;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 60px;
-      animation: fadeIn 1s ease-in;
+    header{
+      text-align:center;
+      margin-bottom: 34px;
+      animation: fadeIn 0.9s ease-in;
     }
 
-    h1 {
-      font-size: 72px;
+    h1{
+      font-size: 68px;
       font-weight: 300;
       letter-spacing: 12px;
-      margin-bottom: 20px;
-      color: #1a1a1a;
+      margin-bottom: 14px;
+      color:#1a1a1a;
     }
 
-    .tagline {
-      font-size: 18px;
-      color: #6b6b6b;
+    .tagline{
+      font-size: 14px;
+      color:#6b6b6b;
       font-weight: 300;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
-    .divider {
-      width: 60px;
-      height: 1px;
-      background: #a89f91;
-      margin: 50px auto;
+    .intro{
+      max-width: 860px;
+      margin: 0 auto 34px;
+      text-align: center;
+      font-size: 18px;
+      color:#3a3a3a;
+      animation: fadeIn 1.2s ease-in;
     }
 
-    .intro {
-      text-align: center;
-      font-size: 20px;
-      line-height: 1.8;
-      color: #3a3a3a;
-      margin-bottom: 40px;
-      max-width: 900px;
+    .intro p{ margin-bottom: 16px; }
+    .intro em{ color:#6b6b6b; font-style: italic; }
+
+    .divider{
+      width: 70px;
+      height: 1px;
+      background:#a89f91;
+      margin: 26px auto 22px;
+      opacity: 0.9;
+    }
+
+    /* --- Editorial image system (no cropping) --- */
+    .gallery{
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 34px; /* big breathing room */
+      animation: fadeIn 1.6s ease-in;
+    }
+
+    figure{
+      margin: 0;
+    }
+
+    .frame{
+      background: #f2efea;
+      border: 1px solid rgba(212, 207, 199, 0.9);
+      border-radius: 2px;
+      padding: 18px; /* whitespace like an editorial margin */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    /* Ensure NO cropping: contain + auto sizing */
+    .frame img{
+      display:block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 1px;
+    }
+
+    /* Hero uses landscape-friendly height but still no crop */
+    .hero .frame{
+      padding: 22px;
+    }
+    .hero img{
+      max-height: 72vh;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Spreads */
+    .spread{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    /* A slightly narrower single for rhythm */
+    .narrow{
+      max-width: 960px;
       margin-left: auto;
       margin-right: auto;
-      animation: fadeIn 1.5s ease-in;
     }
 
-    .intro p { margin-bottom: 20px; }
-    .intro em { font-style: italic; color: #6b6b6b; }
-
-    /* --- Gallery (curated, not cluttery) --- */
-    .gallery-wrap {
-      margin: 60px 0;
-      animation: fadeIn 2s ease-in;
-    }
-
-    .gallery-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 20px;
-      margin: 0 auto 18px auto;
-      max-width: 1100px;
-      padding: 0 4px;
-    }
-
-    .gallery-title {
-      font-size: 18px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #1a1a1a;
-      font-weight: 300;
-    }
-
-    .view-more-btn {
-      border: 1px solid #d4cfc7;
-      background: rgba(255,255,255,0.85);
-      padding: 10px 14px;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 14px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.25s ease;
-      color: #2c2c2c;
-      white-space: nowrap;
-    }
-
-    .view-more-btn:hover {
-      border-color: #a89f91;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    }
-
-    .gallery {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      padding: 0 4px;
-    }
-
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1 / 1;
-      border-radius: 2px;
-      background: #f2efea;
-      cursor: pointer;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.05);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease, filter 0.6s ease;
-      display: block;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.04);
-      filter: saturate(1.02);
-    }
-
-    /* --- Contact --- */
-    .contact-section {
-      background: rgba(255, 255, 255, 0.7);
-      padding: 60px 50px;
+    /* Contact */
+    .contact-section{
+      background: rgba(255,255,255,0.7);
+      padding: 56px 46px;
       border-radius: 2px;
       backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
       max-width: 700px;
-      margin: 80px auto;
-      animation: fadeIn 2.5s ease-in;
+      margin: 80px auto 0;
+      animation: fadeIn 2.0s ease-in;
     }
 
-    .contact-section h2 {
-      font-size: 28px;
+    .contact-section h2{
+      font-size: 26px;
       font-weight: 300;
       letter-spacing: 4px;
       text-align: center;
-      margin-bottom: 40px;
-      color: #1a1a1a;
+      margin-bottom: 34px;
+      color:#1a1a1a;
     }
 
-    form { max-width: 500px; margin: 0 auto; }
-    .form-group { margin-bottom: 25px; }
+    form{ max-width: 500px; margin: 0 auto; }
+    .form-group{ margin-bottom: 22px; }
 
-    label {
-      display: block;
+    label{
+      display:block;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-bottom: 8px;
-      color: #6b6b6b;
+      color:#6b6b6b;
     }
 
-    input, textarea {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #d4cfc7;
-      background: rgba(255, 255, 255, 0.9);
+    input, textarea{
+      width:100%;
+      padding:12px 15px;
+      border:1px solid #d4cfc7;
+      background: rgba(255,255,255,0.9);
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 16px;
-      color: #2c2c2c;
+      color:#2c2c2c;
       border-radius: 2px;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
     }
 
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #a89f91;
-      background: rgba(255, 255, 255, 1);
+    input:focus, textarea:focus{
+      outline:none;
+      border-color:#a89f91;
+      background: rgba(255,255,255,1);
     }
 
-    textarea { resize: vertical; min-height: 120px; }
+    textarea{ resize: vertical; min-height: 120px; }
 
-    button[type="submit"] {
-      width: 100%;
+    button{
+      width:100%;
       padding: 15px;
-      background: #2c2c2c;
-      color: #f5f3f0;
-      border: none;
+      background:#2c2c2c;
+      color:#f5f3f0;
+      border:none;
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 14px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border-radius: 2px;
+      cursor:pointer;
+      transition: all 0.25s ease;
+      border-radius:2px;
     }
 
-    button[type="submit"]:hover {
-      background: #1a1a1a;
+    button:hover{
+      background:#1a1a1a;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    footer {
-      text-align: center;
-      margin-top: 80px;
+    .success-message{
+      display:none;
+      text-align:center;
+      padding: 30px;
+      background: rgba(168,159,145,0.1);
+      border-radius:2px;
+      margin-top: 20px;
+    }
+
+    .success-message.show{
+      display:block;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    footer{
+      text-align:center;
+      margin-top: 70px;
       font-size: 14px;
-      color: #6b6b6b;
+      color:#6b6b6b;
       letter-spacing: 1px;
     }
 
-    .location {
+    .location{
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-top: 10px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeIn{
+      from{ opacity:0; transform: translateY(18px); }
+      to{ opacity:1; transform: translateY(0); }
     }
 
-    .success-message {
-      display: none;
-      text-align: center;
-      padding: 30px;
-      background: rgba(168, 159, 145, 0.1);
-      border-radius: 2px;
-      margin-top: 20px;
-    }
-
-    .success-message.show {
-      display: block;
-      animation: fadeIn 0.5s ease-in;
-    }
-
-    /* --- Lightbox Modal --- */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(20, 20, 20, 0.72);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      z-index: 9999;
-    }
-
-    .modal.show { display: flex; }
-
-    .modal-card {
-      width: min(1200px, 96vw);
-      max-height: 92vh;
-      background: rgba(250, 250, 248, 0.96);
-      border: 1px solid rgba(212, 207, 199, 0.9);
-      border-radius: 6px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .modal-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(212, 207, 199, 0.9);
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(8px);
-    }
-
-    .modal-bar .modal-title {
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #2c2c2c;
-    }
-
-    .modal-close {
-      border: 1px solid #d4cfc7;
-      background: rgba(255,255,255,0.85);
-      padding: 8px 12px;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s ease;
-    }
-
-    .modal-close:hover {
-      border-color: #a89f91;
-      transform: translateY(-1px);
-    }
-
-    .modal-body {
-      overflow: auto;
-      padding: 16px;
-    }
-
-    .modal-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .thumb {
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      border-radius: 4px;
-      background: #f2efea;
-      border: 1px solid rgba(212, 207, 199, 0.9);
-      cursor: pointer;
-    }
-
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.45s ease;
-      display: block;
-    }
-
-    .thumb:hover img { transform: scale(1.04); }
-
-    /* Single-image viewer */
-    .viewer {
-      display: none;
-      gap: 14px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .viewer.show { display: grid; }
-
-    .viewer img {
-      width: min(1050px, 92vw);
-      max-height: 72vh;
-      object-fit: contain;
-      border-radius: 6px;
-      background: #fff;
-      border: 1px solid rgba(212, 207, 199, 0.9);
-    }
-
-    .viewer-actions {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .viewer-actions button {
-      border: 1px solid #d4cfc7;
-      background: rgba(255,255,255,0.85);
-      padding: 10px 12px;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s ease;
-      color: #2c2c2c;
-      width: auto;
-    }
-
-    .viewer-actions button:hover {
-      border-color: #a89f91;
-      transform: translateY(-1px);
-    }
-
-    @media (max-width: 980px) {
-      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .modal-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 768px) {
-      h1 { font-size: 48px; letter-spacing: 8px; }
-      .tagline { font-size: 14px; }
-      .intro { font-size: 18px; }
-      .gallery { grid-template-columns: 1fr; gap: 14px; }
-      .gallery-head { flex-direction: column; align-items: center; }
-      .contact-section { padding: 40px 25px; }
-      .modal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 900px){
+      .spread{ grid-template-columns: 1fr; }
+      h1{ font-size: 48px; letter-spacing: 8px; }
     }
   </style>
 </head>
@@ -413,38 +242,82 @@
     <div class="intro">
       <p>Original artwork transformed into exclusive wallcoverings for interior designers who value authenticity over mass production.</p>
       <div class="divider"></div>
-      <p>Each design begins in our studio—abstract, botanical, minimalist compositions created for high-end residential spaces that deserve to feel collected, not decorated.</p>
-      <p><em>ANYA means "mother" in Hungarian—a tribute to the women who taught us to see beauty in simplicity.</em></p>
+      <p><em>ANYA means “mother” in Hungarian—a tribute to the women who taught us to see beauty in simplicity.</em></p>
     </div>
 
-    <!-- Curated gallery (6 images) -->
-    <section class="gallery-wrap" aria-label="Gallery">
-      <div class="gallery-head">
-        <div class="gallery-title">Selected Works</div>
-        <button class="view-more-btn" id="openModalBtn" type="button">View Full Collection</button>
+    <section class="gallery" aria-label="Gallery">
+
+      <!-- HERO: start with Image 11 (landscape). No crop. -->
+      <figure class="hero">
+        <div class="frame">
+          <img src="images/11.PNG" alt="ANYA wallcovering installation 11" loading="eager">
+        </div>
+      </figure>
+
+      <!-- Spacious rhythm: a spread, then singles, etc. -->
+      <div class="spread">
+        <figure>
+          <div class="frame">
+            <img src="images/1.PNG" alt="ANYA wallcovering installation 1" loading="lazy">
+          </div>
+        </figure>
+        <figure>
+          <div class="frame">
+            <img src="images/2.jpg" alt="ANYA wallcovering installation 2" loading="lazy">
+          </div>
+        </figure>
       </div>
 
-      <div class="gallery" id="curatedGallery">
-        <!-- These 6 are just a curated selection; the modal includes all 11 -->
-        <div class="gallery-item" data-src="images/1.PNG" role="button" tabindex="0" aria-label="Open image 1">
-          <img src="images/1.PNG" alt="Wallcovering installation 1" loading="lazy">
+      <figure class="narrow">
+        <div class="frame">
+          <img src="images/3.jpg" alt="ANYA wallcovering installation 3" loading="lazy">
         </div>
-        <div class="gallery-item" data-src="images/2.jpg" role="button" tabindex="0" aria-label="Open image 2">
-          <img src="images/2.jpg" alt="Wallcovering installation 2" loading="lazy">
-        </div>
-        <div class="gallery-item" data-src="images/3.jpg" role="button" tabindex="0" aria-label="Open image 3">
-          <img src="images/3.jpg" alt="Wallcovering installation 3" loading="lazy">
-        </div>
-        <div class="gallery-item" data-src="images/4.jpg" role="button" tabindex="0" aria-label="Open image 4">
-          <img src="images/4.jpg" alt="Wallcovering installation 4" loading="lazy">
-        </div>
-        <div class="gallery-item" data-src="images/5.jpg" role="button" tabindex="0" aria-label="Open image 5">
-          <img src="images/5.jpg" alt="Wallcovering installation 5" loading="lazy">
-        </div>
-        <div class="gallery-item" data-src="images/10.PNG" role="button" tabindex="0" aria-label="Open image 10">
-          <img src="images/10.PNG" alt="Wallcovering installation 10" loading="lazy">
-        </div>
+      </figure>
+
+      <div class="spread">
+        <figure>
+          <div class="frame">
+            <img src="images/4.jpg" alt="ANYA wallcovering installation 4" loading="lazy">
+          </div>
+        </figure>
+        <figure>
+          <div class="frame">
+            <img src="images/5.jpg" alt="ANYA wallcovering installation 5" loading="lazy">
+          </div>
+        </figure>
       </div>
+
+      <figure class="narrow">
+        <div class="frame">
+          <img src="images/6.jpg" alt="ANYA wallcovering installation 6" loading="lazy">
+        </div>
+      </figure>
+
+      <div class="spread">
+        <figure>
+          <div class="frame">
+            <img src="images/7.PNG" alt="ANYA wallcovering installation 7" loading="lazy">
+          </div>
+        </figure>
+        <figure>
+          <div class="frame">
+            <img src="images/8.PNG" alt="ANYA wallcovering installation 8" loading="lazy">
+          </div>
+        </figure>
+      </div>
+
+      <figure class="narrow">
+        <div class="frame">
+          <img src="images/9.PNG" alt="ANYA wallcovering installation 9" loading="lazy">
+        </div>
+      </figure>
+
+      <figure class="narrow">
+        <div class="frame">
+          <img src="images/10.PNG" alt="ANYA wallcovering installation 10" loading="lazy">
+        </div>
+      </figure>
+
     </section>
 
     <div class="contact-section">
@@ -485,45 +358,7 @@
     </footer>
   </div>
 
-  <!-- Modal: full collection -->
-  <div class="modal" id="galleryModal" aria-hidden="true" aria-label="Full collection modal">
-    <div class="modal-card" role="dialog" aria-modal="true">
-      <div class="modal-bar">
-        <div class="modal-title">Full Collection</div>
-        <button class="modal-close" id="closeModalBtn" type="button">Close</button>
-      </div>
-
-      <div class="modal-body">
-        <!-- Viewer -->
-        <div class="viewer" id="viewer">
-          <img id="viewerImg" src="" alt="Selected wallcovering">
-          <div class="viewer-actions">
-            <button type="button" id="prevBtn">Prev</button>
-            <button type="button" id="backToGridBtn">Back to Grid</button>
-            <button type="button" id="nextBtn">Next</button>
-          </div>
-        </div>
-
-        <!-- Grid of all images -->
-        <div class="modal-grid" id="modalGrid" aria-label="All images grid">
-          <div class="thumb" data-src="images/1.PNG"><img src="images/1.PNG" alt="Wallcovering 1" loading="lazy"></div>
-          <div class="thumb" data-src="images/2.jpg"><img src="images/2.jpg" alt="Wallcovering 2" loading="lazy"></div>
-          <div class="thumb" data-src="images/3.jpg"><img src="images/3.jpg" alt="Wallcovering 3" loading="lazy"></div>
-          <div class="thumb" data-src="images/4.jpg"><img src="images/4.jpg" alt="Wallcovering 4" loading="lazy"></div>
-          <div class="thumb" data-src="images/5.jpg"><img src="images/5.jpg" alt="Wallcovering 5" loading="lazy"></div>
-          <div class="thumb" data-src="images/6.jpg"><img src="images/6.jpg" alt="Wallcovering 6" loading="lazy"></div>
-          <div class="thumb" data-src="images/7.PNG"><img src="images/7.PNG" alt="Wallcovering 7" loading="lazy"></div>
-          <div class="thumb" data-src="images/8.PNG"><img src="images/8.PNG" alt="Wallcovering 8" loading="lazy"></div>
-          <div class="thumb" data-src="images/9.PNG"><img src="images/9.PNG" alt="Wallcovering 9" loading="lazy"></div>
-          <div class="thumb" data-src="images/10.PNG"><img src="images/10.PNG" alt="Wallcovering 10" loading="lazy"></div>
-          <div class="thumb" data-src="images/11.PNG"><img src="images/11.PNG" alt="Wallcovering 11" loading="lazy"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Contact form behavior (unchanged)
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -545,109 +380,6 @@
         document.getElementById('successMessage').classList.remove('show');
       }, 3000);
     });
-
-    // --- Gallery modal + viewer ---
-    const modal = document.getElementById('galleryModal');
-    const openModalBtn = document.getElementById('openModalBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-
-    const modalGrid = document.getElementById('modalGrid');
-    const viewer = document.getElementById('viewer');
-    const viewerImg = document.getElementById('viewerImg');
-
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const backToGridBtn = document.getElementById('backToGridBtn');
-
-    // Build ordered list from thumbnails
-    const allThumbs = Array.from(modalGrid.querySelectorAll('.thumb'));
-    const allSrcs = allThumbs.map(t => t.getAttribute('data-src'));
-
-    let currentIndex = 0;
-
-    function openModal() {
-      modal.classList.add('show');
-      modal.setAttribute('aria-hidden', 'false');
-      // Start on grid, not viewer
-      viewer.classList.remove('show');
-      modalGrid.style.display = 'grid';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      // reset viewer
-      viewer.classList.remove('show');
-      modalGrid.style.display = 'grid';
-      viewerImg.src = '';
-    }
-
-    function showViewerAt(index) {
-      currentIndex = (index + allSrcs.length) % allSrcs.length;
-      viewerImg.src = allSrcs[currentIndex];
-      viewer.classList.add('show');
-      modalGrid.style.display = 'none';
-    }
-
-    function backToGrid() {
-      viewer.classList.remove('show');
-      modalGrid.style.display = 'grid';
-      viewerImg.src = '';
-    }
-
-    openModalBtn.addEventListener('click', openModal);
-    closeModalBtn.addEventListener('click', closeModal);
-
-    // Click outside card closes modal
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-
-    // Esc closes modal; arrows navigate when viewer is open
-    document.addEventListener('keydown', (e) => {
-      if (!modal.classList.contains('show')) return;
-
-      if (e.key === 'Escape') {
-        if (viewer.classList.contains('show')) backToGrid();
-        else closeModal();
-      }
-
-      if (viewer.classList.contains('show')) {
-        if (e.key === 'ArrowLeft') showViewerAt(currentIndex - 1);
-        if (e.key === 'ArrowRight') showViewerAt(currentIndex + 1);
-      }
-    });
-
-    // Clicking thumbs opens viewer
-    allThumbs.forEach((thumb, idx) => {
-      thumb.addEventListener('click', () => showViewerAt(idx));
-    });
-
-    // Curated gallery click opens modal at that image
-    const curatedItems = Array.from(document.querySelectorAll('#curatedGallery .gallery-item'));
-    curatedItems.forEach(item => {
-      const src = item.getAttribute('data-src');
-      const openAt = allSrcs.indexOf(src);
-
-      item.addEventListener('click', () => {
-        openModal();
-        if (openAt >= 0) showViewerAt(openAt);
-      });
-
-      item.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openModal();
-          if (openAt >= 0) showViewerAt(openAt);
-        }
-      });
-    });
-
-    prevBtn.addEventListener('click', () => showViewerAt(currentIndex - 1));
-    nextBtn.addEventListener('click', () => showViewerAt(currentIndex + 1));
-    backToGridBtn.addEventListener('click', backToGrid);
   </script>
 </body>
 </html>
