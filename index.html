@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ANYA - Artist-Created Wallcoverings</title>
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -12,17 +13,19 @@
       background:#fafaf8;
       color:#2c2c2c;
       line-height:1.65;
+      overflow-x: hidden;
     }
 
+    /* Text container stays refined; images break out full-bleed */
     .container{
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 40px 26px 70px;
+      padding: 40px 24px 80px;
     }
 
     header{
       text-align:center;
-      margin-bottom: 34px;
+      margin-bottom: 28px;
       animation: fadeIn 0.9s ease-in;
     }
 
@@ -44,13 +47,12 @@
 
     .intro{
       max-width: 900px;
-      margin: 0 auto 30px;
+      margin: 0 auto 26px;
       text-align: center;
       font-size: 18px;
       color:#3a3a3a;
       animation: fadeIn 1.2s ease-in;
     }
-
     .intro p{ margin-bottom: 16px; }
     .intro em{ color:#6b6b6b; font-style: italic; }
 
@@ -58,100 +60,75 @@
       width: 70px;
       height: 1px;
       background:#a89f91;
-      margin: 26px auto 22px;
+      margin: 22px auto 18px;
       opacity: 0.9;
     }
 
-    /* --- Editorial gallery --- */
+    /* --- Full-bleed gallery --- */
     .gallery{
-      margin-top: 20px;
+      margin-top: 18px;
       display: flex;
       flex-direction: column;
       gap: 34px; /* whitespace rhythm */
       animation: fadeIn 1.6s ease-in;
     }
 
-    figure{ margin: 0; }
-
-    /* Frame = consistent “print margin” look */
-    .frame{
-      background: #f2efea;
-      border: 1px solid rgba(212, 207, 199, 0.9);
-      border-radius: 2px;
-      padding: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    /* Full-bleed breakout from centered container */
+    .full-bleed{
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
     }
 
-    /* Click affordance stays subtle */
-    .zoomable{
+    /* Images dominate: no borders, no frames */
+    .img-block{
       cursor: zoom-in;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
     }
 
-    /* Always NO crop: contain */
-    .frame img{
-      display:block;
+    /* No cropping: contain */
+    .img-block img{
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: contain;
-      border-radius: 1px;
+      display: block;
     }
 
-    /* Hero: landscape-friendly but still no crop */
-    .hero .frame{
-      padding: 22px;
-    }
-    .hero img{
-      max-height: 72vh;
-      width: 100%;
-      height: auto;
-      object-fit: contain;
+    /* Hero: tall but still no crop */
+    .hero{
+      height: min(78vh, 760px);
+      padding: 0;
     }
 
-    /* Spread: two equal-sized tiles */
+    /* Singles (full width, controlled height) */
+    .single{
+      height: 640px;
+    }
+
+    /* Two-up spread (full width, equal sizes) */
     .spread{
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 28px;
+      gap: 18px;
+      padding: 0 0;
     }
 
-    /* Fixed-height tile so side-by-side blocks match */
-    .tile{
-      height: 520px;                 /* desktop */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .tile img{
-      width: 100%;
-      height: 100%;
-      object-fit: contain;           /* no crop */
+    .spread .img-block{
+      height: 520px;
     }
 
-    /* Singles to keep rhythm */
-    .narrow{
-      max-width: 980px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .single-tile{
-      height: 560px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .single-tile img{
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    /* Editorial text blocks between images */
+    /* Editorial text between image groups (kept minimal) */
     .interlude{
       max-width: 860px;
       margin: 0 auto;
       text-align: center;
       color:#3a3a3a;
+      padding: 6px 0;
     }
+
     .interlude .kicker{
       font-size: 12px;
       letter-spacing: 3px;
@@ -159,11 +136,79 @@
       color:#6b6b6b;
       margin-bottom: 10px;
     }
+
     .interlude p{
       font-size: 18px;
       line-height: 1.85;
     }
+
     .interlude em{
+      color:#6b6b6b;
+      font-style: italic;
+    }
+
+    /* --- Artist section (classy, simple) --- */
+    .artist{
+      margin-top: 90px;
+      padding-top: 24px;
+    }
+
+    .artist-head{
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .artist-head .label{
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color:#6b6b6b;
+      margin-bottom: 10px;
+    }
+
+    .artist-head h2{
+      font-size: 30px;
+      font-weight: 300;
+      letter-spacing: 4px;
+      color:#1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    .artist-grid{
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 34px;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .artist-photo{
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 2px;
+      background: #eee;
+      cursor: zoom-in;
+    }
+
+    .artist-photo img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* headshot can crop aesthetically */
+      display: block;
+    }
+
+    .artist-copy{
+      font-size: 18px;
+      color:#3a3a3a;
+      line-height: 1.9;
+    }
+
+    .artist-copy p{
+      margin-bottom: 16px;
+    }
+
+    .artist-copy em{
       color:#6b6b6b;
       font-style: italic;
     }
@@ -176,7 +221,7 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
       max-width: 700px;
-      margin: 80px auto 0;
+      margin: 70px auto 0;
       animation: fadeIn 2.0s ease-in;
     }
 
@@ -275,11 +320,11 @@
       to{ opacity:1; transform: translateY(0); }
     }
 
-    /* --- Lightbox (classy + minimal) --- */
+    /* --- Minimal lightbox: no visible UI clutter --- */
     .lightbox{
       position: fixed;
       inset: 0;
-      background: rgba(18,18,18,0.78);
+      background: rgba(16,16,16,0.82);
       display: none;
       align-items: center;
       justify-content: center;
@@ -288,87 +333,59 @@
     }
     .lightbox.show{ display:flex; }
 
-    .lightbox-card{
-      width: min(1200px, 96vw);
+    .lightbox-inner{
+      width: min(1300px, 96vw);
       max-height: 92vh;
-      background: rgba(250,250,248,0.96);
-      border: 1px solid rgba(212,207,199,0.9);
-      border-radius: 6px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .lightbox-bar{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(212,207,199,0.9);
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(8px);
-    }
-
-    .lightbox-title{
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color:#2c2c2c;
-      opacity: 0.9;
-    }
-
-    .lightbox-actions{
-      display:flex;
-      gap: 8px;
-      align-items:center;
-    }
-
-    .lb-btn{
-      border: 1px solid #d4cfc7;
-      background: rgba(255,255,255,0.85);
-      padding: 8px 10px;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s ease;
-      color:#2c2c2c;
-    }
-    .lb-btn:hover{
-      border-color:#a89f91;
-      transform: translateY(-1px);
-    }
-
-    .lightbox-body{
-      padding: 16px;
       display:flex;
       align-items:center;
       justify-content:center;
-      overflow: auto;
+      position: relative;
     }
 
-    .lightbox-body img{
-      width: min(1100px, 92vw);
-      max-height: 74vh;
-      object-fit: contain; /* never crop */
-      background: #fff;
-      border: 1px solid rgba(212,207,199,0.9);
-      border-radius: 6px;
+    .lightbox-inner img{
+      width: 100%;
+      max-height: 92vh;
+      object-fit: contain;
+      background: transparent;
+      border-radius: 2px;
     }
 
-    @media (max-width: 980px){
-      .spread{ grid-template-columns: 1fr; }
-      .tile{ height: 420px; }
-      .single-tile{ height: 460px; }
+    /* Small hint, very subtle */
+    .hint{
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+      padding: 8px 10px;
+      background: rgba(0,0,0,0.18);
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @media (max-width: 1020px){
+      .spread{ grid-template-columns: 1fr; gap: 26px; }
+      .spread .img-block{ height: 460px; }
+      .single{ height: 520px; }
       h1{ font-size: 48px; letter-spacing: 8px; }
+
+      .artist-grid{
+        grid-template-columns: 1fr;
+      }
+      .artist-photo{
+        max-width: 520px;
+        margin: 0 auto;
+      }
     }
 
     @media (max-width: 560px){
-      .tile{ height: 340px; }
-      .single-tile{ height: 380px; }
+      .spread .img-block{ height: 360px; }
+      .single{ height: 420px; }
       .contact-section{ padding: 40px 25px; }
     }
   </style>
@@ -381,122 +398,95 @@
       <p class="tagline">Artist-Created Wallcoverings</p>
     </header>
 
-    <!-- Keep existing text -->
+    <!-- Keep your existing texts -->
     <div class="intro">
       <p>Original artwork transformed into exclusive wallcoverings for interior designers who value authenticity over mass production.</p>
       <div class="divider"></div>
-      <p><em>ANYA means “mother” in Hungarian—a tribute to the women who taught us to see beauty in simplicity.</em></p>
+      <p>Each design begins in our studio—abstract, botanical, minimalist compositions created for high-end residential spaces that deserve to feel collected, not decorated.</p>
+      <p><em>ANYA means "mother" in Hungarian—a tribute to the women who taught us to see beauty in simplicity.</em></p>
     </div>
 
     <section class="gallery" aria-label="Gallery">
 
-      <!-- HERO: Image 11 -->
-      <figure class="hero">
-        <div class="frame zoomable">
-          <img src="images/11.PNG" alt="ANYA wallcovering installation 11" loading="eager" data-zoom="images/11.PNG">
+      <!-- HERO (Image 11) full-bleed -->
+      <div class="full-bleed img-block hero" data-zoom="images/11.PNG">
+        <img src="images/11.PNG" alt="ANYA wallcovering installation 11" loading="eager">
+      </div>
+
+      <!-- Small, quiet text directly under hero (keeps what you asked) -->
+      <div class="interlude">
+        <div class="kicker">A Living Collection</div>
+        <p>Designed to be experienced at scale—light, texture, and composition working together as the room’s quiet center of gravity.</p>
+      </div>
+
+      <!-- Two-up spread: equal size, full-bleed -->
+      <div class="full-bleed spread">
+        <div class="img-block" data-zoom="images/1.PNG"><img src="images/1.PNG" alt="ANYA wallcovering installation 1" loading="lazy"></div>
+        <div class="img-block" data-zoom="images/2.jpg"><img src="images/2.jpg" alt="ANYA wallcovering installation 2" loading="lazy"></div>
+      </div>
+
+      <div class="interlude">
+        <div class="kicker">Studio Origin</div>
+        <p>Every piece starts as original artwork—built by hand, refined over time, and translated into wallcoverings that feel intentional from across the room.</p>
+      </div>
+
+      <!-- Full-bleed single -->
+      <div class="full-bleed img-block single" data-zoom="images/3.jpg">
+        <img src="images/3.jpg" alt="ANYA wallcovering installation 3" loading="lazy">
+      </div>
+
+      <!-- Two-up spread -->
+      <div class="full-bleed spread">
+        <div class="img-block" data-zoom="images/4.jpg"><img src="images/4.jpg" alt="ANYA wallcovering installation 4" loading="lazy"></div>
+        <div class="img-block" data-zoom="images/5.jpg"><img src="images/5.jpg" alt="ANYA wallcovering installation 5" loading="lazy"></div>
+      </div>
+
+      <div class="interlude">
+        <div class="kicker">For Residential Spaces</div>
+        <p>Created for interiors that value restraint—pieces that add depth and atmosphere without overpowering the architecture.</p>
+      </div>
+
+      <!-- Full-bleed single -->
+      <div class="full-bleed img-block single" data-zoom="images/6.jpg">
+        <img src="images/6.jpg" alt="ANYA wallcovering installation 6" loading="lazy">
+      </div>
+
+      <!-- Two-up spread -->
+      <div class="full-bleed spread">
+        <div class="img-block" data-zoom="images/7.PNG"><img src="images/7.PNG" alt="ANYA wallcovering installation 7" loading="lazy"></div>
+        <div class="img-block" data-zoom="images/8.PNG"><img src="images/8.PNG" alt="ANYA wallcovering installation 8" loading="lazy"></div>
+      </div>
+
+      <!-- Two singles to finish the artwork sequence -->
+      <div class="full-bleed img-block single" data-zoom="images/9.PNG">
+        <img src="images/9.PNG" alt="ANYA wallcovering installation 9" loading="lazy">
+      </div>
+
+      <div class="full-bleed img-block single" data-zoom="images/10.PNG">
+        <img src="images/10.PNG" alt="ANYA wallcovering installation 10" loading="lazy">
+      </div>
+
+    </section>
+
+    <!-- Artist intro -->
+    <section class="artist" aria-label="Artist">
+      <div class="artist-head">
+        <div class="label">The Artist</div>
+        <h2>Katalin</h2>
+        <div class="divider" style="margin: 18px auto 0;"></div>
+      </div>
+
+      <div class="artist-grid">
+        <div class="artist-photo" data-zoom="images/Kat.jpg">
+          <img src="images/Kat.jpg" alt="Portrait of the artist" loading="lazy">
         </div>
-      </figure>
 
-      <!-- Put back the text block under first image -->
-      <div class="interlude">
-        <div class="kicker">Studio to Wall</div>
-        <p>Each design begins in our studio—abstract, botanical, minimalist compositions created for high-end residential spaces that deserve to feel <em>collected</em>, not decorated.</p>
-      </div>
-
-      <!-- Spread 1 (equal tiles) -->
-      <div class="spread">
-        <figure>
-          <div class="frame tile zoomable">
-            <img src="images/1.PNG" alt="ANYA wallcovering installation 1" loading="lazy" data-zoom="images/1.PNG">
-          </div>
-        </figure>
-        <figure>
-          <div class="frame tile zoomable">
-            <img src="images/2.jpg" alt="ANYA wallcovering installation 2" loading="lazy" data-zoom="images/2.jpg">
-          </div>
-        </figure>
-      </div>
-
-      <div class="interlude">
-        <div class="kicker">Made to Live With</div>
-        <p>We design for rooms people actually use—morning light, dinner conversations, quiet corners. The work is meant to hold presence without demanding attention.</p>
-      </div>
-
-      <!-- Single -->
-      <figure class="narrow">
-        <div class="frame single-tile zoomable">
-          <img src="images/3.jpg" alt="ANYA wallcovering installation 3" loading="lazy" data-zoom="images/3.jpg">
+        <div class="artist-copy">
+          <p>Every ANYA design begins as an original work by Katalin—developed slowly, with a painter’s attention to balance, negative space, and the way a room holds light.</p>
+          <p>Her practice lives between <em>quiet modernism</em> and <em>organic gesture</em>: forms that feel collected over time rather than “made for a trend.”</p>
+          <p>For designers, the goal is simple—wallcoverings that elevate a space with presence, not noise.</p>
         </div>
-      </figure>
-
-      <div class="interlude">
-        <div class="kicker">The Collection</div>
-        <p>Some pieces are airy and architectural; others lean botanical or painterly. Together they’re unified by restraint, texture, and a preference for timeless composition.</p>
       </div>
-
-      <!-- Spread 2 -->
-      <div class="spread">
-        <figure>
-          <div class="frame tile zoomable">
-            <img src="images/4.jpg" alt="ANYA wallcovering installation 4" loading="lazy" data-zoom="images/4.jpg">
-          </div>
-        </figure>
-        <figure>
-          <div class="frame tile zoomable">
-            <img src="images/5.jpg" alt="ANYA wallcovering installation 5" loading="lazy" data-zoom="images/5.jpg">
-          </div>
-        </figure>
-      </div>
-
-      <div class="interlude">
-        <div class="kicker">Scale & Quiet Drama</div>
-        <p>Wallcoverings are at their best when they read as atmosphere first, artwork second—creating depth, warmth, and an effortless sense of intention.</p>
-      </div>
-
-      <!-- Single -->
-      <figure class="narrow">
-        <div class="frame single-tile zoomable">
-          <img src="images/6.jpg" alt="ANYA wallcovering installation 6" loading="lazy" data-zoom="images/6.jpg">
-        </div>
-      </figure>
-
-      <div class="interlude">
-        <div class="kicker">Details Matter</div>
-        <p>We obsess over balance—negative space, tonal contrast, and how a line feels from across the room. It’s the difference between “pretty” and truly livable luxury.</p>
-      </div>
-
-      <!-- Spread 3 -->
-      <div class="spread">
-        <figure>
-          <div class="frame tile zoomable">
-            <img src="images/7.PNG" alt="ANYA wallcovering installation 7" loading="lazy" data-zoom="images/7.PNG">
-          </div>
-        </figure>
-        <figure>
-          <div class="frame tile zoomable">
-            <img src="images/8.PNG" alt="ANYA wallcovering installation 8" loading="lazy" data-zoom="images/8.PNG">
-          </div>
-        </figure>
-      </div>
-
-      <div class="interlude">
-        <div class="kicker">For Designers</div>
-        <p>If you’re specifying for a project, we’ll help you choose the right mood and scale—and make sure the final installation feels seamless, intentional, and elevated.</p>
-      </div>
-
-      <!-- Singles -->
-      <figure class="narrow">
-        <div class="frame single-tile zoomable">
-          <img src="images/9.PNG" alt="ANYA wallcovering installation 9" loading="lazy" data-zoom="images/9.PNG">
-        </div>
-      </figure>
-
-      <figure class="narrow">
-        <div class="frame single-tile zoomable">
-          <img src="images/10.PNG" alt="ANYA wallcovering installation 10" loading="lazy" data-zoom="images/10.PNG">
-        </div>
-      </figure>
-
     </section>
 
     <div class="contact-section">
@@ -537,20 +527,11 @@
     </footer>
   </div>
 
-  <!-- Lightbox -->
+  <!-- Minimal Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
-    <div class="lightbox-card" role="dialog" aria-modal="true">
-      <div class="lightbox-bar">
-        <div class="lightbox-title">ANYA — View</div>
-        <div class="lightbox-actions">
-          <button class="lb-btn" id="prevBtn" type="button">Prev</button>
-          <button class="lb-btn" id="nextBtn" type="button">Next</button>
-          <button class="lb-btn" id="closeBtn" type="button">Close</button>
-        </div>
-      </div>
-      <div class="lightbox-body">
-        <img id="lightboxImg" src="" alt="Enlarged wallcovering">
-      </div>
+    <div class="lightbox-inner" id="lightboxInner">
+      <img id="lightboxImg" src="" alt="Enlarged artwork">
+      <div class="hint">ESC to close • ← → to navigate</div>
     </div>
   </div>
 
@@ -578,12 +559,9 @@
       }, 3000);
     });
 
-    // --- Lightbox ---
+    // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
-    const closeBtn = document.getElementById('closeBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
 
     const zoomables = Array.from(document.querySelectorAll('[data-zoom]'));
     const srcs = zoomables.map(el => el.getAttribute('data-zoom'));
@@ -608,16 +586,12 @@
       el.addEventListener('click', () => openLightboxAt(i));
     });
 
-    prevBtn.addEventListener('click', () => openLightboxAt(idx - 1));
-    nextBtn.addEventListener('click', () => openLightboxAt(idx + 1));
-    closeBtn.addEventListener('click', closeLightbox);
-
-    // Click outside closes
+    // Click outside image closes
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) closeLightbox();
     });
 
-    // Keyboard controls
+    // Keyboard
     document.addEventListener('keydown', (e) => {
       if (!lightbox.classList.contains('show')) return;
       if (e.key === 'Escape') closeLightbox();
