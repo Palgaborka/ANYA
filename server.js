@@ -25,18 +25,22 @@ app.post("/api/preview-request", async (req, res) => {
     return res.status(400).json({ error: "Please enter your name and a valid email address." });
   }
   try {
-    console.log(`[preview-request] Attempting email for ${email}`);
-    const info = await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: "kathryn.korb@gmail.com",
+    await transporter.sendMail({
+      from: `"Kathryn Korb" <${process.env.SMTP_FROM}>`,
+      to: "studio@kathrynkorb.com",
       replyTo: email,
-      subject: `New Kathryn Korb Preview Request — ${name}`,
+      subject: `New preview request — ${name}`,
       text: `A new private preview request was submitted.\n\nName: ${name}\nEmail: ${email}\n\nReply to this email to contact ${name}.`
     });
-    console.log("[preview-request] SMTP accepted:", info.accepted);
-    console.log("[preview-request] SMTP rejected:", info.rejected);
-    console.log("[preview-request] Message ID:", info.messageId);
-    console.log("[preview-request] SMTP response:", info.response);
+
+    await transporter.sendMail({
+      from: `"Kathryn Korb" <${process.env.SMTP_FROM}>`,
+      to: email,
+      replyTo: "studio@kathrynkorb.com",
+      subject: "Your Kathryn Korb preview request",
+      text: `Hello ${name.split(/\\s+/)[0]},\n\nThank you for your interest in Kathryn Korb. Your request for private collection access has been received.\n\nKathryn will be in touch soon with preview details.\n\nWarmly,\nKathryn Korb`
+    });
+
     res.json({ ok: true });
   } catch (err) {
     console.error("Preview request email failed:", err);
