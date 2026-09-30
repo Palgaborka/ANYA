@@ -25,13 +25,18 @@ app.post("/api/preview-request", async (req, res) => {
     return res.status(400).json({ error: "Please enter your name and a valid email address." });
   }
   try {
-    await transporter.sendMail({
+    console.log(`[preview-request] Attempting email for ${email}`);
+    const info = await transporter.sendMail({
       from: process.env.SMTP_FROM,
       to: "kathryn.korb@gmail.com",
       replyTo: email,
       subject: `New Kathryn Korb Preview Request — ${name}`,
       text: `A new private preview request was submitted.\n\nName: ${name}\nEmail: ${email}\n\nReply to this email to contact ${name}.`
     });
+    console.log("[preview-request] SMTP accepted:", info.accepted);
+    console.log("[preview-request] SMTP rejected:", info.rejected);
+    console.log("[preview-request] Message ID:", info.messageId);
+    console.log("[preview-request] SMTP response:", info.response);
     res.json({ ok: true });
   } catch (err) {
     console.error("Preview request email failed:", err);
