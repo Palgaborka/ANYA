@@ -38,7 +38,21 @@
   .panel.success-mode .success-card h2{font-size:clamp(34px,11vw,48px)}
 }
 
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}</style></head><body><main class="hero"><div class="brand">KATHRYN KORB</div><div class="middle"><button class="cta" id="open" type="button">Preview the collection</button></div></main><div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-hidden="true"><div class="panel"><button class="close" id="close" aria-label="Close" type="button">×</button><p class="kicker">A private invitation</p><h1 id="dialog-title">An exclusive first look.</h1><p class="description">Request early access to Kathryn Korb's wallcovering collection. Leave your details and be among the first to explore it.</p><form class="form" id="form"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required><button class="submit" type="submit">Request exclusive access</button></form>
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.panel.success-mode{width:min(560px,calc(100vw - 36px));padding:58px 42px 52px}
+.panel.success-mode > .kicker,
+.panel.success-mode > h1,
+.panel.success-mode > .description,
+.panel.success-mode > .note,
+.panel.success-mode > .feedback,
+.panel.success-mode > .form{display:none!important}
+.panel.success-mode .success-card{display:block!important;padding:0;text-align:center}
+.panel.success-mode .success-kicker{margin-bottom:18px}
+.panel.success-mode .success-card h2{margin-bottom:18px}
+@media(max-width:700px){
+  .panel.success-mode{width:calc(100vw - 36px);padding:52px 22px 46px}
+}
+</style></head><body><main class="hero"><div class="brand">KATHRYN KORB</div><div class="middle"><button class="cta" id="open" type="button">Preview the collection</button></div></main><div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-hidden="true"><div class="panel"><button class="close" id="close" aria-label="Close" type="button">×</button><p class="kicker">A private invitation</p><h1 id="dialog-title">An exclusive first look.</h1><p class="description">Request early access to Kathryn Korb's wallcovering collection. Leave your details and be among the first to explore it.</p><form class="form" id="form"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required><button class="submit" type="submit">Request exclusive access</button></form>
 <div class="success-card" id="successCard">
   <div class="success-kicker">PRIVATE PREVIEW</div>
   <h2 id="successTitle">Thank you.</h2>
