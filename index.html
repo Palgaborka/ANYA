@@ -98,7 +98,34 @@
     text-align:center;
   }
 }
-</style></head><body><main class="hero"><div class="brand">KATHRYN KORB</div><div class="middle"><div class="hero-tagline">Artist-Designed Wallcoverings</div><button class="cta" id="open" type="button">Preview the collection</button></div></main><div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-hidden="true"><div class="panel"><button class="close" id="close" aria-label="Close" type="button">×</button><p class="kicker">A private invitation</p><h1 id="dialog-title">An exclusive first look.</h1><p class="description">Request early access to Kathryn Korb's wallcovering collection. Leave your details and be among the first to explore it.</p><form class="form" id="form"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required><button class="submit" type="submit">Request exclusive access</button></form>
+
+.brand-location{
+  display:block;
+  margin-top:9px;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  padding-left:.24em;
+  color:rgba(255,255,255,.92);
+  text-shadow:0 1px 7px rgba(0,0,0,.5);
+}
+@media(max-width:700px){
+  .brand-location{
+    margin-top:8px;
+    font-size:9px;
+    letter-spacing:.22em;
+    padding-left:.22em;
+  }
+}
+
+
+@media(max-width:700px){
+  .brand-location{display:none;}
+}
+
+</style></head><body><main class="hero"><div class="brand">KATHRYN KORB<span class="brand-location">Palm Beaches</span></div><div class="middle"><div class="hero-tagline">Artist-Designed Wallcoverings</div><button class="cta" id="open" type="button">Preview the collection</button></div></main><div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-hidden="true"><div class="panel"><button class="close" id="close" aria-label="Close" type="button">×</button><p class="kicker">A private invitation</p><h1 id="dialog-title">An exclusive first look.</h1><p class="description">Request early access to Kathryn Korb's wallcovering collection. Leave your details and be among the first to explore it.</p><form class="form" id="form"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required><button class="submit" type="submit">Request exclusive access</button></form>
 <div class="success-card" id="successCard">
   <div class="success-kicker">PRIVATE PREVIEW</div>
   <h2 id="successTitle">Thank you.</h2>
