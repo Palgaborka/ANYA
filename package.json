@@ -1,0 +1,12 @@
+{
+  "name": "anya-wallcoverings",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "4.21.2",
+    "nodemailer": "6.10.1"
+  }
+}

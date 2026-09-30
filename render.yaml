@@ -1,6 +1,8 @@
 services:
   - type: web
-    name: anya-wallcoverings
-    runtime: static
-    staticPublishPath: .
-    buildCommand: echo "Static site ready"
+    name: anya
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
