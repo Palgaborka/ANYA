@@ -55,6 +55,33 @@
 @media(max-width:700px){
   .panel.success-mode{width:calc(100vw - 36px);padding:52px 22px 46px}
 }
+
+@media(min-width:701px){
+  .middle{
+    top:89%;
+    width:auto;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+  }
+  .hero-tagline{
+    position:static;
+    display:block;
+    padding:0;
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:clamp(18px,1.65vw,24px);
+    font-weight:700;
+    letter-spacing:.24em;
+    white-space:nowrap;
+    color:#fff;
+    text-align:center;
+    text-shadow:0 1px 8px rgba(0,0,0,.62);
+  }
+}
+
 </style></head><body><main class="hero"><div class="brand">KATHRYN KORB</div><div class="hero-tagline">Artist-Designed Wallcoverings</div><div class="middle"><button class="cta" id="open" type="button">Preview the collection</button></div></main><div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-hidden="true"><div class="panel"><button class="close" id="close" aria-label="Close" type="button">×</button><p class="kicker">A private invitation</p><h1 id="dialog-title">An exclusive first look.</h1><p class="description">Request early access to Kathryn Korb's wallcovering collection. Leave your details and be among the first to explore it.</p><form class="form" id="form"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required><button class="submit" type="submit">Request exclusive access</button></form>
 <div class="success-card" id="successCard">
   <div class="success-kicker">PRIVATE PREVIEW</div>
