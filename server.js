@@ -3,7 +3,16 @@ const nodemailer = require("nodemailer");
 const path = require("path");
 
 const app = express();
+app.set("trust proxy", 1);
 app.use(express.json({ limit: "20kb" }));
+const requestLog = new Map();
+const RATE_WINDOW_MS = 60 * 60 * 1000, RATE_MAX = 5, MIN_FILL_MS = 1800;
+function rateLimited(ip) {
+  const now = Date.now();
+  const recent = (requestLog.get(ip) || []).filter(t => now - t < RATE_WINDOW_MS);
+  if (recent.length >= RATE_MAX) { requestLog.set(ip, recent); return true; }
+  recent.push(now); requestLog.set(ip, recent); return false;
+}
 app.use(express.static(__dirname));
 
 const required = ["SMTP_HOST","SMTP_PORT","SMTP_USER","SMTP_PASS","SMTP_FROM"];
@@ -21,6 +30,11 @@ const transporter = nodemailer.createTransport({
 app.post("/api/preview-request", async (req, res) => {
   const name = String(req.body?.name || "").trim().slice(0, 120);
   const email = String(req.body?.email || "").trim().slice(0, 254);
+  const website = String(req.body?.website || "").trim();
+  const startedAt = Number(req.body?.startedAt || 0);
+  const ip = req.ip || req.socket.remoteAddress || "unknown";
+  if (website || !startedAt || Date.now() - startedAt < MIN_FILL_MS) return res.json({ ok: true });
+  if (rateLimited(ip)) return res.status(429).json({ error: "Too many requests. Please try again later." });
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: "Please enter your name and a valid email address." });
   }
@@ -49,4 +63,4 @@ app.post("/api/preview-request", async (req, res) => {
 });
 
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
-app.listen(process.env.PORT || 10000, "0.0.0.0", () => console.log("ANYA web service running"));
+app.listen(process.env.PORT || 10000, "0.0.0.0", () => console.log("Kathryn Korb web service running"));
